@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?konfabulator xml-strict="true"?>
+<widget minimumVersion="3.0">
+    <author>Greg Hewgill</author>
+    <company>hewgill.com</company>
+    <copyright>Copyright 2006 Greg Hewgill</copyright>
+    <!--image>Resources/atom.gif</image-->
+    <version>1.0</version>
+
+    <window name="Main" title="Earthquakes" width="350" height="175">
+        <image name="Map" src="Resources/world.jpg" />
+        <image name="MapE" hOffset="-150" src="Resources/world.jpg" visible="false" />
+        <image name="MapW" hOffset="200" src="Resources/world.jpg" visible="false" />
+    </window>
+
+    <preference
+        name="mapType"
+        description="Map type"
+        type="popup">
+        <option>Greenwich center</option>   <optionValue>greenwich</optionValue>
+        <option>Ring of fire</option>       <optionValue>ringoffire</optionValue>
+    </preference>
+
+    <action trigger="onLoad" file="script.js" />
+
+    <action trigger="onTimer" interval="11113">
+        reload();
+    </action>
+
+    <action trigger="onPreferencesChanged">
+        resetMap();
+    </action>
+
+</widget>
