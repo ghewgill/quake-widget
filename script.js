@@ -164,22 +164,21 @@ function refresh()
         c.tooltip = q.title + "\n" + q.date;
         c.window = Main;
         c.contextMenuItems = menu;
-        var t = new Text();
+        var t = null;
         if (q.mag > 6.5) {
+            t = new Text();
             t.data = q.mag;
-        } else {
-            t.data = "   ";
+            t.color = "#ffffff";
+            t.hAlign = "center";
+            t.hOffset = mx;
+            t.vOffset = my + 4;
+            t.size = 10;
+            t.style = "bold";
+            t.tooltip = q.title + "\n" + q.date;
+            t.window = Main;
+            t.onMultiClick = menu[0].onSelect;
+            t.contextMenuItems = menu;
         }
-        t.color = "#ffffff";
-        t.hAlign = "center";
-        t.hOffset = mx;
-        t.vOffset = my + 4;
-        t.size = 10;
-        t.style = "bold";
-        t.tooltip = q.title + "\n" + q.date;
-        t.window = Main;
-        t.onMultiClick = menu[0].onSelect;
-        t.contextMenuItems = menu;
         q.circle = c;
         q.label = t;
         if (zoom == 1) {
@@ -226,7 +225,7 @@ menu[1].onSelect = "doZoom(1, 0, 0)";
 Map.contextMenuItems = menu;
 Map2.contextMenuItems = menu;
 
-if (system.platform == "windows") {
+if (system.platform == "windows" /*&& konfabulatorVersion() == "3.0.2"*/) {
     preferences.minMagnitude.ticks--;
 }
 
