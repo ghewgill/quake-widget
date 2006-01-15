@@ -142,7 +142,10 @@ function refresh()
         menu[1].onSelect = "doZoom(zoom*2, "+(mx - MapWindow.hOffset)+", "+(my - MapWindow.vOffset)+")";
         menu[2] = new MenuItem();
         menu[2].title = "Zoom out";
-        menu[2].onSelect = "doZoom(1, 0, 0)";
+        menu[2].onSelect = "doZoom(zoom/2, "+(mx - MapWindow.hOffset)+", "+(my - MapWindow.vOffset)+")";
+        menu[3] = new MenuItem();
+        menu[3].title = "Zoom to full map";
+        menu[3].onSelect = "doZoom(1, 0, 0)";
         var c = new Image();
         if (now.getTime() - Date.parse(q.date) < 86400000) {
             c.src = "Resources/circle.png";
@@ -154,8 +157,8 @@ function refresh()
         c.hOffset = mx;
         c.vOffset = my;
         c.width = Math.exp(q.mag) / 30;
-        if (c.width < 5) {
-            c.width = 5;
+        if (c.width < 6) {
+            c.width = 6;
         }
         if (c.width > 70) {
             c.width = 70;
@@ -189,8 +192,11 @@ function refresh()
 
 function doZoom(newZoom, x, y)
 {
-    if (newZoom > 8) {
-        newZoom = 8;
+    if (newZoom < 1) {
+        newZoom = 1;
+    }
+    if (newZoom > 16) {
+        newZoom = 16;
     }
     if (zoom == 1) {
         zoomX = 2048 * x / MapWindow.width;
@@ -221,7 +227,10 @@ menu[0].title = "Zoom in";
 menu[0].onSelect = "doZoom(zoom*2, system.event.screenX - Main.hOffset - MapWindow.hOffset, system.event.screenY - Main.vOffset - MapWindow.vOffset)";
 menu[1] = new MenuItem();
 menu[1].title = "Zoom out";
-menu[1].onSelect = "doZoom(1, 0, 0)";
+menu[1].onSelect = "doZoom(zoom/2, system.event.screenX - Main.hOffset - MapWindow.hOffset, system.event.screenY - Main.vOffset - MapWindow.vOffset)";
+menu[2] = new MenuItem();
+menu[2].title = "Zoom to full map";
+menu[2].onSelect = "doZoom(1, 0, 0)";
 Map.contextMenuItems = menu;
 Map2.contextMenuItems = menu;
 
