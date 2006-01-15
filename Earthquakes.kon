@@ -48,7 +48,7 @@
         type="slider"
         minLength="25"
         maxLength="60"
-        ticks="7"
+        ticks="8"
         value="50">
         <tickLabel>2.5</tickLabel>
         <tickLabel>Minimum magnitude</tickLabel>

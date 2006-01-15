@@ -226,6 +226,10 @@ menu[1].onSelect = "doZoom(1, 0, 0)";
 Map.contextMenuItems = menu;
 Map2.contextMenuItems = menu;
 
+if (system.platform == "windows") {
+    preferences.minMagnitude.ticks--;
+}
+
 resetMap();
 updateNow();
 reload();
