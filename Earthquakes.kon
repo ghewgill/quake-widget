@@ -5,12 +5,34 @@
     <company>hewgill.com</company>
     <copyright>Copyright 2006 Greg Hewgill</copyright>
     <!--image>Resources/atom.gif</image-->
-    <version>1.0</version>
+    <version>0.9</version>
 
-    <window name="Main" title="Earthquakes" width="350" height="175">
-        <image name="Map" src="Resources/world.jpg" />
-        <image name="MapE" hOffset="-150" src="Resources/world.jpg" visible="false" />
-        <image name="MapW" hOffset="200" src="Resources/world.jpg" visible="false" />
+    <window name="Main" title="Earthquakes" width="370" height="195">
+        <image name="Frame" src="Resources/frame.gif" />
+        <frame name="MapWindow" hOffset="10" vOffset="10" width="350" height="175">
+            <image name="Map" src="Resources/world.jpg" visible="false" />
+            <image name="Map2" src="Resources/world.jpg" visible="false" />
+            <text
+                name="Loading"
+                hOffset="175"
+                vOffset="85"
+                hAlign="center"
+                vAlign="center"
+                color="#FFFFFF"
+                data="Loading..."
+            />
+
+            <text
+                name="Error"
+                hOffset="175"
+                vOffset="85"
+                hAlign="center"
+                vAlign="center"
+                color="#FF0000"
+                visible="false"
+                data="Error loading data from usgs.gov"
+            />
+        </frame>
     </window>
 
     <preference
@@ -21,6 +43,25 @@
         <option>Ring of fire</option>       <optionValue>ringoffire</optionValue>
     </preference>
 
+    <preference
+        name="minMagnitude"
+        type="slider"
+        minLength="25"
+        maxLength="60"
+        ticks="7"
+        value="50">
+        <tickLabel>2.5</tickLabel>
+        <tickLabel>Minimum magnitude</tickLabel>
+        <tickLabel>6.0</tickLabel>
+    </preference>
+
+    <timer
+        name="RetryTimer"
+        interval="607"
+        onTimerFired="reload()"
+        ticking="false"
+    />
+
     <action trigger="onLoad" file="script.js" />
 
     <action trigger="onTimer" interval="11113">
@@ -28,7 +69,7 @@
     </action>
 
     <action trigger="onPreferencesChanged">
-        resetMap();
+        checkReload();
     </action>
 
 </widget>
