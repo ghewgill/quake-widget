@@ -4,8 +4,19 @@
     <author>Greg Hewgill</author>
     <company>hewgill.com</company>
     <copyright>Copyright 2006 Greg Hewgill</copyright>
-    <!--image>Resources/atom.gif</image-->
+    <image>Resources/quake.gif</image>
     <version>0.9</version>
+
+    <about-box>
+        <about-image>Resources/about.gif</about-image>
+        <about-version hOffset="30" vOffset="220" />
+        <about-text
+            hOffset="15"
+            vOffset="250"
+            data="&#xa9; 2006 Greg Hewgill &lt;greg@hewgill.com&gt;"
+            url="http://hewgill.com"
+        />
+    </about-box>
 
     <window name="Main" title="Earthquakes" width="370" height="195">
         <image name="Frame" src="Resources/frame.gif" />
@@ -38,36 +49,38 @@
     <preference
         name="zoom"
         hidden="true"
-        value="1"
+        defaultValue="1"
     />
     <preference
         name="zoomX"
         hidden="true"
-        value="0"
+        defaultValue="0"
     />
     <preference
         name="zoomY"
         hidden="true"
-        value="0"
+        defaultValue="0"
     />
 
     <preference
         name="mapType"
-        description="Map type"
-        type="popup">
+        title="Map type:"
+        type="popup"
+        defaultValue="greenwich">
         <option>Greenwich center</option>   <optionValue>greenwich</optionValue>
         <option>Ring of fire</option>       <optionValue>ringoffire</optionValue>
     </preference>
 
     <preference
         name="minMagnitude"
+        title="Minimum magnitude:"
         type="slider"
         minLength="25"
         maxLength="60"
         ticks="8"
-        value="50">
+        defaultValue="50">
         <tickLabel>2.5</tickLabel>
-        <tickLabel>Minimum magnitude</tickLabel>
+        <tickLabel>Richter scale</tickLabel>
         <tickLabel>6.0</tickLabel>
     </preference>
 

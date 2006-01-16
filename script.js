@@ -31,7 +31,7 @@ function toint(s)
     return r;
 }
 
-function resetMap()
+function resetMap(doRefresh)
 {
     var zoom = toint(preferences.zoom.value);
     if (zoom == 1) {
@@ -79,7 +79,9 @@ function resetMap()
     Map.contextMenuItems[1].enabled = zoom < 16;
     Map.contextMenuItems[2].enabled = zoom > 1;
     Map.contextMenuItems[3].enabled = zoom > 1;
-    refresh();
+    if (doRefresh) {
+        refresh();
+    }
 }
 
 function clearDisplay()
@@ -212,6 +214,7 @@ function refresh()
         c.height = c.width;
         c.tooltip = q.title + "\n" + q.date + "\n(" + ago(q.date) + ")";
         c.window = Main;
+        c.onMultiClick = menu[0].onSelect;
         c.contextMenuItems = menu;
         var t = null;
         if (q.mag > 6.5) {
@@ -257,15 +260,17 @@ function doZoom(newZoom, x, y)
     }
     preferences.zoomX.value = (toint(preferences.zoomX.value) + 2048) % 2048;
     preferences.zoom.value = newZoom;
-    resetMap();
+    resetMap(true);
 }
 
 function checkReload()
 {
+    clearDisplay();
     if (preferences.minMagnitude.value < minLoadedMagnitude) {
+        resetMap(false);
         reload();
     } else {
-        resetMap();
+        resetMap(true);
     }
 }
 
@@ -291,10 +296,15 @@ menu[3].onSelect = "doZoom(1, 0, 0)";
 Map.contextMenuItems = menu;
 Map2.contextMenuItems = menu;
 
+// There's a minor bug in the Windows version of the widget engine
+// that displays one more tick mark than requested. Since we want exactly
+// eight tick marks (from magnitude 2.5 to 6.0 by 0.5, tweak the ticks
+// value on Windows. Presumably this will need to change if this bug
+// is corrected in a future version of the widget engine.
 if (system.platform == "windows" /*&& konfabulatorVersion() == "3.0.2"*/) {
     preferences.minMagnitude.ticks--;
 }
 
-resetMap();
+resetMap(false);
 updateNow();
 reload();
