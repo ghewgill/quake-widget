@@ -22,9 +22,18 @@ function ago(d)
     return r + " ago";
 }
 
+function toint(s)
+{
+    var r = parseInt(s);
+    if (isNaN(r)) {
+        r = 0;
+    }
+    return r;
+}
+
 function resetMap()
 {
-    var zoom = parseInt(preferences.zoom.value);
+    var zoom = toint(preferences.zoom.value);
     if (zoom == 1) {
         if (preferences.mapType.value == "ringoffire") {
             Map.src = "Resources/world.jpg";
@@ -45,8 +54,8 @@ function resetMap()
         Map.src = "Resources/bigworld.jpg";
         Map.width = 256 * zoom;
         Map.height = 128 * zoom;
-        Map.hOffset = -parseInt(preferences.zoomX.value)/8*zoom + MapWindow.width/2;
-        Map.vOffset = -parseInt(preferences.zoomY.value)/8*zoom + MapWindow.height/2;
+        Map.hOffset = -toint(preferences.zoomX.value)/8*zoom + MapWindow.width/2;
+        Map.vOffset = -toint(preferences.zoomY.value)/8*zoom + MapWindow.height/2;
         Map.visible = true;
     }
     if (Map.hOffset > 0) {
@@ -136,7 +145,7 @@ function reload()
 
 function refresh()
 {
-    var zoom = parseInt(preferences.zoom.value);
+    var zoom = toint(preferences.zoom.value);
     print("refresh zoom="+zoom);
     var now = new Date();
     clearDisplay();
@@ -153,13 +162,13 @@ function refresh()
             }
             my = MapWindow.height * (90 - q.lat) / 180;
         } else {
-            mx = Map.width * (2048 * (q.lon + 180) / 360 - parseInt(preferences.zoomX.value)) / 2048 + MapWindow.width/2;
+            mx = Map.width * (2048 * (q.lon + 180) / 360 - toint(preferences.zoomX.value)) / 2048 + MapWindow.width/2;
             if (mx < 0) {
                 mx += Map.width;
             } else if (mx > Map.width) {
                 mx -= Map.width;
             }
-            my = Map.height * (1024 * (90 - q.lat) / 180 - parseInt(preferences.zoomY.value)) / 1024 + MapWindow.height/2;
+            my = Map.height * (1024 * (90 - q.lat) / 180 - toint(preferences.zoomY.value)) / 1024 + MapWindow.height/2;
         }
         var menu = new Array();
         menu[0] = new MenuItem();
@@ -167,15 +176,15 @@ function refresh()
         menu[0].onSelect = "openURL(\""+q.link+"\")";
         menu[1] = new MenuItem();
         menu[1].title = "Center";
-        menu[1].onSelect = "doZoom(parseInt(preferences.zoom.value), "+mx+", "+my+")";
+        menu[1].onSelect = "doZoom(toint(preferences.zoom.value), "+mx+", "+my+")";
         menu[1].enabled = zoom > 1;
         menu[2] = new MenuItem();
         menu[2].title = "Zoom in";
-        menu[2].onSelect = "doZoom(parseInt(preferences.zoom.value)*2, "+mx+", "+my+")";
+        menu[2].onSelect = "doZoom(toint(preferences.zoom.value)*2, "+mx+", "+my+")";
         menu[2].enabled = zoom < 16;
         menu[3] = new MenuItem();
         menu[3].title = "Zoom out";
-        menu[3].onSelect = "doZoom(parseInt(preferences.zoom.value)/2, "+mx+", "+my+")";
+        menu[3].onSelect = "doZoom(toint(preferences.zoom.value)/2, "+mx+", "+my+")";
         menu[3].enabled = zoom > 1;
         menu[4] = new MenuItem();
         menu[4].title = "Zoom to full map";
@@ -235,7 +244,7 @@ function doZoom(newZoom, x, y)
     if (newZoom > 16) {
         newZoom = 16;
     }
-    var zoom = parseInt(preferences.zoom.value);
+    var zoom = toint(preferences.zoom.value);
     if (zoom == 1) {
         preferences.zoomX.value = 2048 * x / MapWindow.width;
         preferences.zoomY.value = 1024 * y / MapWindow.height;
@@ -243,10 +252,10 @@ function doZoom(newZoom, x, y)
             preferences.zoomX.value = (preferences.zoomX.value + 2048 - 2048*(200/350)) % 2048;
         }
     } else {
-        preferences.zoomX.value = parseInt(preferences.zoomX.value) + 8/zoom * (x - MapWindow.width/2);
-        preferences.zoomY.value = parseInt(preferences.zoomY.value) + 8/zoom * (y - MapWindow.height/2);
+        preferences.zoomX.value = toint(preferences.zoomX.value) + 8/zoom * (x - MapWindow.width/2);
+        preferences.zoomY.value = toint(preferences.zoomY.value) + 8/zoom * (y - MapWindow.height/2);
     }
-    preferences.zoomX.value = (parseInt(preferences.zoomX.value) + 2048) % 2048;
+    preferences.zoomX.value = (toint(preferences.zoomX.value) + 2048) % 2048;
     preferences.zoom.value = newZoom;
     resetMap();
 }
@@ -260,22 +269,22 @@ function checkReload()
     }
 }
 
-if (parseInt(preferences.zoom.value) < 1) {
+if (toint(preferences.zoom.value) < 1) {
     preferences.zoom.value = 1;
-} else if (parseInt(preferences.zoom.value) > 16) {
+} else if (toint(preferences.zoom.value) > 16) {
     preferences.zoom.value = 16;
 }
 
 var menu = new Array();
 menu[0] = new MenuItem();
 menu[0].title = "Center";
-menu[0].onSelect = "doZoom(parseInt(preferences.zoom.value), system.event.screenX - Main.hOffset - MapWindow.hOffset, system.event.screenY - Main.vOffset - MapWindow.vOffset)";
+menu[0].onSelect = "doZoom(toint(preferences.zoom.value), system.event.screenX - Main.hOffset - MapWindow.hOffset, system.event.screenY - Main.vOffset - MapWindow.vOffset)";
 menu[1] = new MenuItem();
 menu[1].title = "Zoom in";
-menu[1].onSelect = "doZoom(parseInt(preferences.zoom.value)*2, system.event.screenX - Main.hOffset - MapWindow.hOffset, system.event.screenY - Main.vOffset - MapWindow.vOffset)";
+menu[1].onSelect = "doZoom(toint(preferences.zoom.value)*2, system.event.screenX - Main.hOffset - MapWindow.hOffset, system.event.screenY - Main.vOffset - MapWindow.vOffset)";
 menu[2] = new MenuItem();
 menu[2].title = "Zoom out";
-menu[2].onSelect = "doZoom(parseInt(preferences.zoom.value)/2, system.event.screenX - Main.hOffset - MapWindow.hOffset, system.event.screenY - Main.vOffset - MapWindow.vOffset)";
+menu[2].onSelect = "doZoom(toint(preferences.zoom.value)/2, system.event.screenX - Main.hOffset - MapWindow.hOffset, system.event.screenY - Main.vOffset - MapWindow.vOffset)";
 menu[3] = new MenuItem();
 menu[3].title = "Zoom to full map";
 menu[3].onSelect = "doZoom(1, 0, 0)";
