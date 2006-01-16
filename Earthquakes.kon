@@ -36,6 +36,22 @@
     </window>
 
     <preference
+        name="zoom"
+        hidden="true"
+        value="1"
+    />
+    <preference
+        name="zoomX"
+        hidden="true"
+        value="0"
+    />
+    <preference
+        name="zoomY"
+        hidden="true"
+        value="0"
+    />
+
+    <preference
         name="mapType"
         description="Map type"
         type="popup">
