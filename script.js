@@ -24,7 +24,7 @@ function ago(d)
 
 function toint(s)
 {
-    var r = parseInt(s);
+    var r = parseInt(s, 10);
     if (isNaN(r)) {
         r = 0;
     }
@@ -106,7 +106,6 @@ function reload()
 {
     print("reloading from earthquake.usgs.gov");
     RetryTimer.ticking = false;
-    Error.visible = false;
     Loading.visible = true;
     updateNow();
     var req = new XMLHttpRequest();
@@ -120,19 +119,25 @@ function reload()
     req.send();
     Loading.visible = false;
     updateNow();
-    doc = XMLDOM.parse(req.responseText);
+    var doc = XMLDOM.parse(req.responseText);
     if (!doc.documentElement) {
+        RetryTimer.interval = RetryTimer.interval * 2;
+        if (RetryTimer.interval > 607) {
+            RetryTimer.interval = 607;
+        }
         RetryTimer.ticking = true;
         Error.visible = true;
         return;
     }
-    items = doc.documentElement.getElementsByTagName("item");
+    Error.visible = false;
+    RetryTimer.interval = 2;
+    var items = doc.documentElement.getElementsByTagName("item");
     print("  "+items.length+" quakes loaded");
     if (items.length > 0) {
         clear();
         for (var i = 0; i < items.length; i++) {
             var x = items.item(i);
-            q = new Object();
+            var q = new Object();
             q.title = x.getElementsByTagName("title").item(0).firstChild.nodeValue;
             q.date = x.getElementsByTagName("description").item(0).firstChild.nodeValue;
             q.link = x.getElementsByTagName("link").item(0).firstChild.nodeValue;
@@ -156,6 +161,7 @@ function refresh()
         if (q.mag*10 < preferences.minMagnitude.value) {
             continue;
         }
+        var mx, my;
         if (zoom == 1) {
             if (preferences.mapType.value == "ringoffire") {
                 mx = (MapWindow.width * (q.lon + 180) / 360 + 200) % MapWindow.width;
@@ -298,7 +304,7 @@ Map2.contextMenuItems = menu;
 
 // There's a minor bug in the Windows version of the widget engine
 // that displays one more tick mark than requested. Since we want exactly
-// eight tick marks (from magnitude 2.5 to 6.0 by 0.5, tweak the ticks
+// eight tick marks (from magnitude 2.5 to 6.0 by 0.5), tweak the ticks
 // value on Windows. Presumably this will need to change if this bug
 // is corrected in a future version of the widget engine.
 if (system.platform == "windows" /*&& konfabulatorVersion() == "3.0.2"*/) {

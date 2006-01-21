@@ -8,11 +8,12 @@
     <version>0.9</version>
 
     <about-box>
-        <about-image>Resources/about.gif</about-image>
-        <about-version hOffset="30" vOffset="220" />
+        <about-image>Resources/about.png</about-image>
+        <about-version hOffset="30" vOffset="220" color="#FFFFFF" />
         <about-text
             hOffset="15"
             vOffset="250"
+            color="#FFFFFF"
             data="&#xa9; 2006 Greg Hewgill &lt;greg@hewgill.com&gt;"
             url="http://hewgill.com"
         />
@@ -36,12 +37,12 @@
             <text
                 name="Error"
                 hOffset="175"
-                vOffset="85"
+                vOffset="145"
                 hAlign="center"
                 vAlign="center"
                 color="#FF0000"
                 visible="false"
-                data="Error loading data from usgs.gov"
+                data="Unable to load data from usgs.gov"
             />
         </frame>
     </window>
@@ -86,13 +87,14 @@
 
     <timer
         name="RetryTimer"
-        interval="607"
+        interval="2"
         onTimerFired="reload()"
         ticking="false"
     />
 
     <action trigger="onLoad" file="script.js" />
 
+    <!-- reload about every three hours -->
     <action trigger="onTimer" interval="11113">
         reload();
     </action>
