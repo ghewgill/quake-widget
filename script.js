@@ -214,8 +214,8 @@ function refresh()
         if (c.width < 6) {
             c.width = 6;
         }
-        if (c.width > 70) {
-            c.width = 70;
+        if (c.width > 100) {
+            c.width = 100;
         }
         c.height = c.width;
         c.tooltip = q.title + "\n" + q.date + "\n(" + ago(q.date) + ")";

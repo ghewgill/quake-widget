@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <?konfabulator xml-strict="true"?>
 <widget minimumVersion="3.0">
+<!--
+    Earthquakes
+    (c) 2006 Greg Hewgill
+    http://hewgill.com
+-->
+
     <author>Greg Hewgill</author>
     <company>hewgill.com</company>
     <copyright>Copyright 2006 Greg Hewgill</copyright>
     <image>Resources/quake.gif</image>
-    <version>0.9</version>
+    <version>1.0</version>
 
     <about-box>
         <about-image>Resources/about.png</about-image>
@@ -67,7 +73,7 @@
         name="mapType"
         title="Map type:"
         type="popup"
-        defaultValue="greenwich">
+        defaultValue="ringoffire">
         <option>Greenwich center</option>   <optionValue>greenwich</optionValue>
         <option>Ring of fire</option>       <optionValue>ringoffire</optionValue>
     </preference>
