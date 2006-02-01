@@ -110,10 +110,10 @@ function reload()
     updateNow();
     var req = new XMLHttpRequest();
     if (preferences.minMagnitude.value >= 50) {
-        req.open("GET", "http://earthquake.usgs.gov/recenteqsww/catalogs/eqs7day-M5.xml", false);
+        req.open("GET", "http://earthquake.usgs.gov/eqcenter/recenteqsww/catalogs/eqs7day-M5.xml", false);
         minLoadedMagnitude = 50;
     } else {
-        req.open("GET", "http://earthquake.usgs.gov/recenteqsww/catalogs/eqs7day-M2.5.xml", false);
+        req.open("GET", "http://earthquake.usgs.gov/eqcenter/recenteqsww/catalogs/eqs7day-M2.5.xml", false);
         minLoadedMagnitude = 25;
     }
     req.send();
@@ -141,6 +141,9 @@ function reload()
             q.title = x.getElementsByTagName("title").item(0).firstChild.nodeValue;
             q.date = x.getElementsByTagName("description").item(0).firstChild.nodeValue;
             q.link = x.getElementsByTagName("link").item(0).firstChild.nodeValue;
+            if (q.link.substring(q.link.length-4) == ".htm") {
+                q.link = q.link.substring(0, q.link.length-4);
+            }
             q.lat = parseFloat(x.getElementsByTagName("geo:lat").item(0).firstChild.nodeValue);
             q.lon = parseFloat(x.getElementsByTagName("geo:long").item(0).firstChild.nodeValue);
             q.mag = parseFloat(q.title.substring(2, q.title.indexOf(',')));
