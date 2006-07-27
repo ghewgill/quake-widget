@@ -35,7 +35,6 @@
                 hOffset="175"
                 vOffset="85"
                 hAlign="center"
-                vAlign="center"
                 color="#FFFFFF"
                 data="Loading..."
             />
@@ -45,7 +44,6 @@
                 hOffset="175"
                 vOffset="145"
                 hAlign="center"
-                vAlign="center"
                 color="#FF0000"
                 visible="false"
                 data="Unable to load data from usgs.gov"
