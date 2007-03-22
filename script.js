@@ -110,10 +110,10 @@ function reload()
     updateNow();
     var req = new XMLHttpRequest();
     if (preferences.minMagnitude.value >= 50) {
-        req.open("GET", "http://earthquake.usgs.gov/eqcenter/recenteqsww/catalogs/eqs7day-M5.xml", false);
+        req.open("GET", "http://earthquake.usgs.gov/eqcenter/catalogs/eqs7day-M5.xml", false);
         minLoadedMagnitude = 50;
     } else {
-        req.open("GET", "http://earthquake.usgs.gov/eqcenter/recenteqsww/catalogs/eqs7day-M2.5.xml", false);
+        req.open("GET", "http://earthquake.usgs.gov/eqcenter/catalogs/eqs7day-M2.5.xml", false);
         minLoadedMagnitude = 25;
     }
     req.send();
