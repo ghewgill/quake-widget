@@ -184,7 +184,8 @@ function refresh()
         var menu = new Array();
         menu[0] = new MenuItem();
         menu[0].title = "Open quake info ("+q.title+")";
-        menu[0].onSelect = "openURL(\""+q.link+"\")";
+        menu[0].href = q.link;
+        menu[0].onSelect = function() { openURL(this.href); };
         menu[1] = new MenuItem();
         menu[1].title = "Center";
         menu[1].onSelect = "doZoom(toint(preferences.zoom.value), "+mx+", "+my+")";
