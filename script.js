@@ -224,6 +224,7 @@ function refresh()
         c.height = c.width;
         c.tooltip = q.title + "\n" + q.date + "\n(" + ago(q.date) + ")";
         c.window = Main;
+        c.href = q.link;
         c.onMultiClick = menu[0].onSelect;
         c.contextMenuItems = menu;
         var t = null;
@@ -238,6 +239,7 @@ function refresh()
             t.style = "bold";
             t.tooltip = c.tooltip;
             t.window = Main;
+            t.href = q.link;
             t.onMultiClick = menu[0].onSelect;
             t.contextMenuItems = menu;
         }
