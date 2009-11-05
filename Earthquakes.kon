@@ -3,15 +3,15 @@
 <widget minimumVersion="3.0">
 <!--
     Earthquakes
-    (c) 2006-2007 Greg Hewgill
+    (c) 2006-2009 Greg Hewgill
     http://hewgill.com
 -->
 
     <author>Greg Hewgill</author>
     <company>hewgill.com</company>
-    <copyright>Copyright 2006-2007 Greg Hewgill</copyright>
+    <copyright>Copyright 2006-2009 Greg Hewgill</copyright>
     <image>Resources/quake.gif</image>
-    <version>1.4</version>
+    <version>1.5</version>
 
     <about-box>
         <about-image>Resources/about.png</about-image>
@@ -21,7 +21,7 @@
             vOffset="250"
             color="#FFFFFF"
             size="11"
-            data="&#xa9; 2006-2007 Greg Hewgill &lt;greg@hewgill.com&gt;"
+            data="&#xa9; 2006-2009 Greg Hewgill &lt;greg@hewgill.com&gt;"
             url="http://hewgill.com"
         />
     </about-box>
